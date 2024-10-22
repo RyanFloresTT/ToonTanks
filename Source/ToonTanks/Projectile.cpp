@@ -39,8 +39,8 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	if(OtherActor && OtherActor != this && MyOwner != OtherActor)
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, OwnerInstigator, this, DamageTypeClass);
-		Destroy();
 	}
+	Destroy();
 }
 
 // Called every frame
