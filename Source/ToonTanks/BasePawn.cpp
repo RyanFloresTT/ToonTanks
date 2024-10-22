@@ -41,10 +41,16 @@ void ABasePawn::RotateTurret(FVector LookAtTarget)
 
 void ABasePawn::Fire()
 {
-	if (!ProjectileSpawn) {return;}
-	GetWorld()->
+	if (!ProjectileSpawn) return;
+	
+	FVector Location = ProjectileSpawn->GetComponentLocation();
+	FRotator Rotation = TurretMesh->GetComponentRotation();
+	
+	AProjectile* Projectile = GetWorld()->
 	SpawnActor<AProjectile>(
 		ProjectileClass,
-		ProjectileSpawn->GetComponentLocation(),
-		TurretMesh->GetComponentRotation());
+		Location,
+		Rotation);
+	
+	Projectile->SetOwner(this);
 }
