@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Projectile.h"
+#include "LegacyCameraShake.h"
 
 // Sets default values
 ABasePawn::ABasePawn()
@@ -29,6 +30,13 @@ ABasePawn::ABasePawn()
 void ABasePawn::HandleDestruction()
 {
 	// TODO: Handle Visual & SFX
+	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticles, GetActorLocation(), GetActorRotation());
+	UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
+
+	if(DeathCameraShake)
+	{
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(DeathCameraShake);
+	}
 }
 
 void ABasePawn::RotateTurret(FVector LookAtTarget)
